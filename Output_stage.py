@@ -24,8 +24,7 @@ def businesses_in_radius(user_coord, radius, business_type, dataset):
 data = [
     {'name': 'Restaurant A', 'review': 'Excellent', 'type': 'Restaurant', 'latitude': 40.7128, 'longitude': -74.0060},
     {'name': 'Cafe B', 'review': 'Very Good', 'type': 'Cafe', 'latitude': 40.7328, 'longitude': -74.0160},
-    {'name': 'Retail C', 'review': 'Good', 'type': 'Retail', 'latitude': 40.7528, 'longitude': -74.0260},
-    # ... add more business data ...
+    {'name': 'Retail C', 'review': 'Good', 'type': 'Retail', 'latitude': 40.7528, 'longitude': -74.0260}
 ]
 
 user_coordinates = (40.7128, -74.0060)  # Example user coordinates
