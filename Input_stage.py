@@ -19,7 +19,7 @@ def get_location_from_address(address):
     return None, None
 
 def input_stage():
-    st.title("Business Locator - Input Stage")
+    
 
     # Location input methods
     st.write("## Select Your Location")
