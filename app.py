@@ -7,7 +7,6 @@ import math
 
 def main():
     st.title("Business Locator Application")
-    st.write("### Selected Location and Category")
 
     # Calling the input stage function
     user_location, business_category = Input_stage.input_stage()
