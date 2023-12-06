@@ -48,7 +48,16 @@ def businesses_in_radius(user_coord, radius, business_type, dataset):
                 })
 
     return nearby_businesses
+# Example usage
+data = [
+    {'name': 'Restaurant A', 'review': 'Excellent', 'type': 'Restaurant', 'latitude': 40.7128, 'longitude': -74.0060},
+    {'name': 'Cafe B', 'review': 'Very Good', 'type': 'Cafe', 'latitude': 40.7328, 'longitude': -74.0160},
+    {'name': 'Retail C', 'review': 'Good', 'type': 'Retail', 'latitude': 40.7528, 'longitude': -74.0260}
+]
 
+user_coordinates = (40.7128, -74.0060)  # Example user coordinates
+radius_km = 5  # 5 km radius
+business_type = 'Restaurant'  # User-selected business type
 
 
 # Get businesses of a specific type within the radius
