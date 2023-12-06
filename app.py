@@ -63,7 +63,7 @@ def main():
             view_state = pdk.ViewState(
                 latitude=df['lat'].mean(),
                 longitude=df['lon'].mean(),
-                zoom=11,
+                zoom=initial_zoom,
                 pitch=0
             )
 
