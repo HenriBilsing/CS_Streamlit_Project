@@ -1,4 +1,5 @@
 import streamlit as st
+import pydeck as pdk
 import Input_stage
 import Output_stage
 import pandas as pd
@@ -34,20 +35,43 @@ def main():
         results = Output_stage.businesses_in_radius(user_location, radius_km, business_category, data)
         
         if results:
-            # Prepare DataFrame for st.map
+            # Prepare DataFrame for pydeck
             df = pd.DataFrame({
                 'lat': [res['coordinates'][0] for res in results],
                 'lon': [res['coordinates'][1] for res in results],
                 'name': [res['name'] for res in results],
-                'review': [res['review'] for res in results]
+                'review': [res['review'] for res in results]  # Assuming 'review' is a field in your results
             })
-            st.map(df)
-            # Optionally display details in a table
-            st.write(results)
+
+            # Create a pydeck Layer
+            layer = pdk.Layer(
+                'ScatterplotLayer',     # Use a ScatterplotLayer
+                df,
+                get_position=['lon', 'lat'],
+                get_color=[255, 30, 0, 160],
+                get_radius=100,
+                pickable=True
+            )
+
+            # Set the viewport location
+            view_state = pdk.ViewState(
+                latitude=df['lat'].mean(),
+                longitude=df['lon'].mean(),
+                zoom=11,
+                pitch=0
+            )
+
+            # Render the map with pydeck
+            r = pdk.Deck(
+                layers=[layer],
+                initial_view_state=view_state,
+                tooltip={"html": "<b>Name:</b> {name}<br><b>Review:</b> {review}"}
+            )
+            st.pydeck_chart(r)
+
         else:
             st.write("No businesses found within the specified radius.")
 
 if __name__ == "__main__":
     main()
-
 
