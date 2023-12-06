@@ -22,7 +22,7 @@ def input_stage():
     
 
     # Location input methods
-    st.write("## Select Your Location")
+    st.write("## Select Your Location and Category")
     method = st.radio("Choose your method to input location:", ("Enter Coordinates", "Share Location", "Enter Address"))
 
     if method == "Enter Coordinates":
