@@ -66,7 +66,7 @@ def main():
                 layers=[layer],
                 initial_view_state=view_state,
                 tooltip={"html": "<b>Name:</b> {name}<br><b>Review:</b> {review}"},
-                api_key=google_maps
+                api_key=GOOGLE_MAPS_API_KEY
             )
             st.pydeck_chart(r)
 
