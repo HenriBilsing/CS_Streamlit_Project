@@ -31,7 +31,7 @@ def main():
     # Button to perform action
     if st.button('Find Businesses'):
         # Use user_location as the coordinates
-        results = Output_stage.businesses_in_radius(user_location, radius_km, business_type, data)
+        results = Output_stage.businesses_in_radius(user_location, radius_km, business_category, data)
         
         if results:
             # Prepare DataFrame for st.map
