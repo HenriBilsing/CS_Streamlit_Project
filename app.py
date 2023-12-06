@@ -11,13 +11,13 @@ def main():
     # Calling the input stage function
     user_location, business_category = Input_stage.input_stage()
 
-    # Display the results from the input stage
-    st.write(f"Location: {user_location}")
-    st.write(f"Category: {business_category}")
-
     # User inputs
     radius_km = st.number_input('Radius in km', value=5)
-    business_type = st.selectbox('Business Type', ['Restaurant', 'Cafe', 'Retail'])
+
+      # Display the results from the input stage
+    st.write(f"Location: {user_location}")
+    st.write(f"Category: {business_category}")
+    st.write(f"Radious: {radius_km}")
 
    # Example usage
     data = [
@@ -27,6 +27,7 @@ def main():
         {'name': 'Cafe B', 'review': 'Very Good', 'type': 'Cafe', 'latitude': 40.7328, 'longitude': -74.0160},
         {'name': 'Retail C', 'review': 'Good', 'type': 'Retail', 'latitude': 40.7528, 'longitude': -74.0260}
         ]
+    
     # Button to perform action
     if st.button('Find Businesses'):
         # Use user_location as the coordinates
