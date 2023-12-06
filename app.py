@@ -43,13 +43,19 @@ def main():
                 'review': [res['review'] for res in results]  # Assuming 'review' is a field in your results
             })
 
+             # Set the initial zoom level
+            initial_zoom = 11
+
+            # Adjust radius based on zoom level
+            radius = 100 * 2**(13 - initial_zoom)
+
             # Create a pydeck Layer
             layer = pdk.Layer(
                 'ScatterplotLayer',     # Use a ScatterplotLayer
                 df,
                 get_position=['lon', 'lat'],
                 get_color=[255, 30, 0, 160],
-                get_radius=50,
+                get_radius=radius,
                 pickable=True
             )
 
