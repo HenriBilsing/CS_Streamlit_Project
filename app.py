@@ -47,7 +47,7 @@ def main():
             initial_zoom = 11
 
             # Adjust radius based on zoom level
-            radius = 20 * 2**(13 - initial_zoom)
+            radius = 20 * 1**(13 - initial_zoom)
 
             # Create a pydeck Layer
             layer = pdk.Layer(
