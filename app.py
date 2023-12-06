@@ -18,7 +18,7 @@ def main():
       # Display the results from the input stage
     st.write(f"Location: {user_location}")
     st.write(f"Category: {business_category}")
-    st.write(f"Radious: {radius_km}")
+    st.write(f"Radius: {radius_km}")
 
    # Example usage
     data = [
