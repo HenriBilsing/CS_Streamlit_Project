@@ -22,11 +22,11 @@ def main():
 
    # Example usage
     data = [
-        {'name': 'Restaurant A', 'review': 'Excellent', 'type': 'Restaurant', 'latitude': 40.7128, 'longitude': -74.0060},
-        {'name': 'Restaurant B', 'review': 'Good', 'type': 'Restaurant', 'latitude': 40.73, 'longitude': -74.0060},
-        {'name': 'Restaurant C', 'review': 'Bad', 'type': 'Restaurant', 'latitude': 40.74, 'longitude': -74.0060},
-        {'name': 'Cafe B', 'review': 'Very Good', 'type': 'Cafe', 'latitude': 40.7328, 'longitude': -74.0160},
-        {'name': 'Retail C', 'review': 'Good', 'type': 'Retail', 'latitude': 40.7528, 'longitude': -74.0260}
+        {'name': 'Restaurant A', 'review': 'Excellent', 'type': 'Restaurant', 'latitude': 47.4331279, 'longitude': 9.3746559},
+        {'name': 'Restaurant B', 'review': 'Good', 'type': 'Restaurant', 'latitude': 47.434, 'longitude': 9.377},
+        {'name': 'Restaurant C', 'review': 'Bad', 'type': 'Restaurant', 'latitude': 47.435, 'longitude': 9.3743},
+        {'name': 'Cafe B', 'review': 'Very Good', 'type': 'Cafe', 'latitude': 47.4331279, 'longitude': 9.3746559},
+        {'name': 'Retail C', 'review': 'Good', 'type': 'Retail', 'latitude': 47.4331279, 'longitude': 9.3746559}
         ]
     
     # Button to perform action
