@@ -65,8 +65,7 @@ def main():
             r = pdk.Deck(
                 layers=[layer],
                 initial_view_state=view_state,
-                tooltip={"html": "<b>Name:</b> {name}<br><b>Review:</b> {review}"},
-                api_key=GOOGLE_MAPS_API_KEY
+                tooltip={"html": "<b>Name:</b> {name}<br><b>Review:</b> {review}"}
             )
             st.pydeck_chart(r)
 
