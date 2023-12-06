@@ -49,7 +49,7 @@ def main():
                 df,
                 get_position=['lon', 'lat'],
                 get_color=[255, 30, 0, 160],
-                get_radius=25,
+                get_radius=50,
                 pickable=True
             )
 
