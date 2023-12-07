@@ -3,9 +3,10 @@ import streamlit as st
 from streamlit_geolocation import streamlit_geolocation
 import requests
 
-def get_location_from_address(address):
-    """Convert an address to latitude and longitude using Maps.co Geocoding API."""
+def get_location_from_address(street, city, postal_code):
+    """Convert an address in Switzerland to latitude and longitude using Maps.co Geocoding API."""
     base_url = "https://geocode.maps.co/search"
+    address = f"{street}, {city}, {postal_code}, Switzerland"
     params = {"q": address}
     response = requests.get(base_url, params=params)
     
@@ -19,11 +20,14 @@ def get_location_from_address(address):
     return None, None
 
 def input_stage():
-    
 
-    # Location input methods
+
+    
     st.write("## Select Your Location and Category")
     method = st.radio("Choose your method to input location:", ("Enter Coordinates", "Share Location", "Enter Address"))
+
+    user_location = (None, None)
+    radius_km = None
 
     if method == "Enter Coordinates":
         lat = st.number_input("Enter Latitude", format="%.6f")
@@ -38,16 +42,28 @@ def input_stage():
             user_location = (lat, lon)
             st.write(f"Coordinates: {user_location}")
 
-        else:
-            user_location = (None, None)
+
 
     elif method == "Enter Address":
-        address = st.text_input("Enter your address")
-        user_location = get_location_from_address(address)
-        if user_location[0] is not None:
-            st.write(f"Coordinates: {user_location}")
+        street = st.text_input("Street Name and Number")
+        city = st.text_input("City")
+        postal_code = st.text_input("Postal Code")
+        
+        if len(postal_code) != 4:
+            st.error("Postal code must be 4 digits.")
+        elif postal_code:
+            user_location = get_location_from_address(street, city, postal_code)
+            if user_location[0] is not None:
+                st.write(f"Coordinates: {user_location}")
+
+    # Non-editable field for country
+    country = "Switzerland"
+    st.text_input("Country", value=country, disabled=True)
+
+    # Radius input
+    radius_km = st.number_input('Radius in km', value=2)
 
     # Business category selection
     business_category = st.selectbox("Select Business Category", ["Restaurant", "Cafe", "Retail", "Other"])
 
-    return user_location, business_category
+    return user_location, business_category, radius_km

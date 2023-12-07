@@ -10,10 +10,7 @@ def main():
     st.title("Business Locator Application")
 
     # Calling the input stage function
-    user_location, business_category = Input_stage.input_stage()
-
-    # User inputs
-    radius_km = st.number_input('Radius in km', value=2)
+    user_location, business_category, radius_km = Input_stage.input_stage()
 
       # Display the results from the input stage
     st.write(f"Location: {user_location}")
