@@ -13,24 +13,28 @@ def main():
     # Calling the input stage function
     user_location, business_category, radius_km = Input_stage.input_stage()
 
-      # Display the results from the input stage
+    # Display the results from the input stage
     st.write(f"Location: {user_location}")
     st.write(f"Category: {business_category}")
     st.write(f"Radius: {radius_km}")
 
-   # Example usage
-    data = [
-        {'name': 'Restaurant A', 'review': 'Excellent', 'type': 'Restaurant', 'latitude': 47.4331279, 'longitude': 9.3746559},
-        {'name': 'Restaurant B', 'review': 'Good', 'type': 'Restaurant', 'latitude': 47.434, 'longitude': 9.377},
-        {'name': 'Restaurant C', 'review': 'Bad', 'type': 'Restaurant', 'latitude': 47.435, 'longitude': 9.3743},
-        {'name': 'Cafe B', 'review': 'Very Good', 'type': 'Cafe', 'latitude': 47.4331279, 'longitude': 9.3746559},
-        {'name': 'Retail C', 'review': 'Good', 'type': 'Retail', 'latitude': 47.4331279, 'longitude': 9.3746559}
+    # Call the relevant API-related function (if any) from Output_stage
+    api_data = API_code.process_api_data({'coordinates': {'latitude': user_location[0], 'longitude': user_location[1]}, 'category': business_category})
+
+    if api_data:
+        yelp_businesses = [
+            {
+                'name': business['name'],
+                'review': business.get('review', ''),
+                'type': business_category,
+                'latitude': business['coordinates']['latitude'],
+                'longitude': business['coordinates']['longitude'],
+            }
+            for business in api_data
         ]
-    
-    # Button to perform action
-    if st.button('Find Businesses'):
-        # Use user_location as the coordinates
-        results = Output_stage.businesses_in_radius(user_location, radius_km, business_category, data)
+
+        # Get businesses of a specific type within the radius
+        results = Output_stage.businesses_in_radius(user_location, radius_km, business_category, yelp_businesses)
         
         if results:
             # Prepare DataFrame for pydeck
