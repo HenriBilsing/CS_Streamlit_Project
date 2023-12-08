@@ -55,14 +55,33 @@ data = [
     {'name': 'Retail C', 'review': 'Good', 'type': 'Retail', 'latitude': 40.7528, 'longitude': -74.0260}
 ]
 
+# Example usage
 user_coordinates = (40.7128, -74.0060)  # Example user coordinates
 radius_km = 5  # 5 km radius
 business_type = 'Restaurant'  # User-selected business type
 
+# Call Yelp API to get businesses
+api_data = process_api_data({'coordinates': {'latitude': user_coordinates[0], 'longitude': user_coordinates[1]}, 'category': business_type})
 
-# Get businesses of a specific type within the radius
-businesses = businesses_in_radius(user_coordinates, radius_km, business_type, data)
-businesses
+if api_data:
+    # Extract relevant information from Yelp API response
+    yelp_businesses = [
+        {
+            'name': business['name'],
+            'review': business.get('review', ''),
+            'type': business_type,
+            'latitude': business['coordinates']['latitude'],
+            'longitude': business['coordinates']['longitude'],
+        }
+        for business in api_data
+    ]
+
+    # Get businesses of a specific type within the radius
+    businesses = businesses_in_radius(user_coordinates, radius_km, business_type, yelp_businesses)
+    businesses
+else:
+    print('Yelp API data retrieval failed. Check your API key and request.')
+
 
 
 # Streamlit app
