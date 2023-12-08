@@ -40,44 +40,20 @@ def businesses_in_radius(user_coord, radius, business_type, dataset):
         if entry['type'] == business_type:
             business_coord = (entry['latitude'], entry['longitude'])
             distance = haversine_distance(user_coord, business_coord)
-            
+
             if distance <= radius:
                 nearby_businesses.append({
                     'name': entry['name'],
                     'coordinates': business_coord,
-                    'review': entry['review']
+                    'review': entry.get('review', '')
                 })
 
     return nearby_businesses
 
-# Example usage
-user_coordinates = (40.7128, -74.0060)  # Example user coordinates
-radius_km = 5  # 5 km radius
-business_type = 'Restaurant'  # User-selected business type
-
-# Call Yelp API to get businesses
-api_data = process_api_data({'coordinates': {'latitude': user_coordinates[0], 'longitude': user_coordinates[1]}, 'category': business_type})
-
-if api_data:
-    # Extract relevant information from Yelp API response
-    yelp_businesses = [
-        {
-            'name': business['name'],
-            'review': business.get('review', ''),
-            'type': business_type,
-            'latitude': business['coordinates']['latitude'],
-            'longitude': business['coordinates']['longitude'],
-        }
-        for business in api_data
-    ]
-
-    # Get businesses of a specific type within the radius
-    businesses = businesses_in_radius(user_coordinates, radius_km, business_type, yelp_businesses)
-    businesses
-else:
-    print('Yelp API data retrieval failed. Check your API key and request.')
-
-
+def process_output_data(output_data):
+    # Process the data received from the API stage
+    businesses = output_data.get('results', [])
+    return businesses
 
 # Streamlit app
 def main():
