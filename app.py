@@ -17,8 +17,13 @@ def main():
     st.write(f"Radius: {radius_km}")
 
     # Call the relevant API-related function (if any) from API_stage
-    api_data = API_stage.process_api_data({'coordinates': {'latitude': user_location[0], 'longitude': user_location[1]}, 'category': business_category})
-
+    api_data = API_stage.process_api_data({
+        'coordinates': {
+            'latitude': user_location[0], 
+            'longitude': user_location[1]
+        }, 
+        'category': business_category
+    })
 
     if api_data:
         yelp_businesses = [
@@ -29,7 +34,7 @@ def main():
                 'latitude': business['coordinates']['latitude'],
                 'longitude': business['coordinates']['longitude'],
             }
-            for business in api_data
+            for business in api_data['results']  # Ensure this matches the structure of your API response
         ]
 
         # Get businesses of a specific type within the radius
@@ -38,13 +43,13 @@ def main():
         if results:
             # Prepare DataFrame for pydeck
             df = pd.DataFrame({
-                'lat': [res['coordinates'][0] for res in results],
-                'lon': [res['coordinates'][1] for res in results],
+                'lat': [res['latitude'] for res in results],
+                'lon': [res['longitude'] for res in results],
                 'name': [res['name'] for res in results],
-                'review': [res['review'] for res in results]  # Assuming 'review' is a field in your results
+                'review': [res['review'] for res in results]
             })
 
-             # Set the initial zoom level
+            # Set the initial zoom level
             initial_zoom = 11
 
             # Adjust radius based on zoom level
@@ -52,7 +57,7 @@ def main():
 
             # Create a pydeck Layer
             layer = pdk.Layer(
-                'ScatterplotLayer',     # Use a ScatterplotLayer
+                'ScatterplotLayer',
                 df,
                 get_position=['lon', 'lat'],
                 get_color=[255, 30, 0, 160],
@@ -71,21 +76,16 @@ def main():
             show_map_button = st.button('Show Map')
         
             if show_map_button:
-            # Only execute this block if the button is clicked
-             # Render the map with pydeck
-            r = pdk.Deck(
-                layers=[layer],
-                initial_view_state=view_state,
-                tooltip={"html": "<b>Name:</b> {name}<br><b>Review:</b> {review}"}
-            )
-            st.pydeck_chart(r)
-            
-        else:
-            st.write("Click 'Show Map' to display the businesses on a map.")
+                # Render the map with pydeck
+                r = pdk.Deck(
+                    layers=[layer],
+                    initial_view_state=view_state,
+                    tooltip={"html": "<b>Name:</b> {name}<br><b>Review:</b> {review}"}
+                )
+                st.pydeck_chart(r)
 
         else:
             st.write("No businesses found within the specified radius.")
 
 if __name__ == "__main__":
     main()
-
