@@ -11,8 +11,6 @@ def process_api_data(input_data):
     yelp_api_url = 'https://api.yelp.com/v3/businesses/search'
     api_key = 'Vsfhiaf8e7xi1tqb9f6os-CIQxN-Qo8Vg80Ir0yG9m61wLtcL8EdCWM8K9l9Y8Oaj3wI-nRMh7M1GzRaIGTDPkwXRdOLzYbxAkRlkyRk-PhyvEyU0sHsBIRpOBlrZXYx'
 
-
-    
     headers = {
         'Authorization': f'Bearer {api_key}',
     }
@@ -25,14 +23,9 @@ def process_api_data(input_data):
     response = requests.get(yelp_api_url, headers=headers, params=params)
 
     # Step 4: Process API Response
-   if response.status_code == 200:
+    if response.status_code == 200:
         api_data = response.json()
         businesses = api_data.get('businesses', [])
-        return businesses
-
-    else:
-        print(f'Error accessing Yelp API. Status code: {response.status_code}')
-        return None
 
         # Step 5: Filter and Sort
         # Apply additional filtering and sorting if needed
