@@ -32,39 +32,47 @@ def main():
             results = Output_stage.process_output_data(api_data)
 
             if results:
-                # Prepare DataFrame for pydeck
-                df = pd.DataFrame({
-                    'lat': [res['latitude'] for res in results],
-                    'lon': [res['longitude'] for res in results],
-                    'name': [res['name'] for res in results],
-                    'review': [res['review'] for res in results]
-                })
+                # Validate data and construct DataFrame
+                valid_results = [
+                    res for res in results 
+                    if 'latitude' in res and 'longitude' in res
+                ]
 
-                # Rendering the map with pydeck
-                initial_zoom = 11
-                radius = 10 * 2**(13 - initial_zoom)
-                layer = pdk.Layer(
-                    'ScatterplotLayer',
-                    df,
-                    get_position=['lon', 'lat'],
-                    get_color=[255, 30, 0, 160],
-                    get_radius=radius,
-                    pickable=True
-                )
-                view_state = pdk.ViewState(
-                    latitude=df['lat'].mean(),
-                    longitude=df['lon'].mean(),
-                    zoom=initial_zoom,
-                    pitch=0
-                )
-                r = pdk.Deck(
-                    layers=[layer],
-                    initial_view_state=view_state,
-                    tooltip={"html": "<b>Name:</b> {name}<br><b>Review:</b> {review}"}
-                )
-                st.pydeck_chart(r)
+                if valid_results:
+                    df = pd.DataFrame({
+                        'lat': [res['latitude'] for res in valid_results],
+                        'lon': [res['longitude'] for res in valid_results],
+                        'name': [res['name'] for res in valid_results],
+                        'review': [res['review'] for res in valid_results]
+                    })
+
+                    # Rendering the map with pydeck
+                    initial_zoom = 11
+                    radius = 10 * 2**(13 - initial_zoom)
+                    layer = pdk.Layer(
+                        'ScatterplotLayer',
+                        df,
+                        get_position=['lon', 'lat'],
+                        get_color=[255, 30, 0, 160],
+                        get_radius=radius,
+                        pickable=True
+                    )
+                    view_state = pdk.ViewState(
+                        latitude=df['lat']. mean(),
+                        longitude=df['lon'].mean(),
+                        zoom=initial_zoom,
+                        pitch=0
+                    )
+                    r = pdk.Deck(
+                        layers=[layer],
+                        initial_view_state=view_state,
+                        tooltip={"html": "<b>Name:</b> {name}<br><b>Review:</b> {review}"}
+                    )
+                    st.pydeck_chart(r)
+                else:
+                    st.write("No valid business data found.")
             else:
                 st.write("No businesses found within the specified radius.")
-
+                
 if __name__ == "__main__":
     main()
