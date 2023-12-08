@@ -19,6 +19,7 @@ def main():
     # Call the relevant API-related function (if any) from API_stage
     api_data = API_stage.process_api_data({'coordinates': {'latitude': user_location[0], 'longitude': user_location[1]}, 'category': business_category})
 
+
     if api_data:
         yelp_businesses = [
             {
@@ -67,13 +68,20 @@ def main():
                 pitch=0
             )
 
-            # Render the map with pydeck
+            show_map_button = st.button('Show Map')
+        
+            if show_map_button:
+            # Only execute this block if the button is clicked
+             # Render the map with pydeck
             r = pdk.Deck(
                 layers=[layer],
                 initial_view_state=view_state,
                 tooltip={"html": "<b>Name:</b> {name}<br><b>Review:</b> {review}"}
             )
             st.pydeck_chart(r)
+            
+        else:
+            st.write("Click 'Show Map' to display the businesses on a map.")
 
         else:
             st.write("No businesses found within the specified radius.")
