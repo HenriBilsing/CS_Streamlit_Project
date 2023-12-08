@@ -34,6 +34,8 @@ def process_api_data(input_data):
             'results': [
                 {
                     'name': business.get('name', 'Unknown'),
+                    'latitude': business['coordinates']['latitude'] if 'coordinates' in business and 'latitude' in business['coordinates'] else None,
+                    'longitude': business['coordinates']['longitude'] if 'coordinates' in business and 'longitude' in business['coordinates'] else None,
                     'distance': business.get('distance'),
                     'rating': business.get('rating'),
                 }
