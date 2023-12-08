@@ -1,12 +1,11 @@
-# Import necessary libraries
+# API_stage.py
 import requests
 import json
 
-# Function to process data in API stage
 def process_api_data(input_data):
     # Step 2: Format and Validate Input
     # Assume input_data is a dictionary with keys 'coordinates', 'address', 'category'
-    
+
     # Step 3: Use Yelp API
     yelp_api_url = 'https://api.yelp.com/v3/businesses/search'
     api_key = 'Vsfhiaf8e7xi1tqb9f6os-CIQxN-Qo8Vg80Ir0yG9m61wLtcL8EdCWM8K9l9Y8Oaj3wI-nRMh7M1GzRaIGTDPkwXRdOLzYbxAkRlkyRk-PhyvEyU0sHsBIRpOBlrZXYx'
@@ -14,12 +13,12 @@ def process_api_data(input_data):
     headers = {
         'Authorization': f'Bearer {api_key}',
     }
-    
+
     params = {
         'term': input_data['category'],
         'location': input_data['address'] if 'address' in input_data else f'{input_data["coordinates"]["latitude"]},{input_data["coordinates"]["longitude"]}',
     }
-    
+
     response = requests.get(yelp_api_url, headers=headers, params=params)
 
     # Step 4: Process API Response
@@ -42,11 +41,7 @@ def process_api_data(input_data):
             ]
         }
 
-        # Convert output_data to JSON
-        output_json = json.dumps(output_data)
-
-        # Step 7: Send to Output Stage
-        send_to_output_stage(output_json)
+        return output_data
 
     else:
         print(f'Error accessing Yelp API. Status code: {response.status_code}')
@@ -59,3 +54,5 @@ def process_api_data(input_data):
         else:
             # Handle other error cases as needed
             print('Unhandled error. Check your request and try again.')
+
+        return None
