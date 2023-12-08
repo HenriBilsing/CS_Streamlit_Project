@@ -33,7 +33,7 @@ def process_api_data(input_data):
         output_data = {
             'results': [
                 {
-                    'name': business.get['name', 'Unknown'],
+                    'name': business.get('name', 'Unknown'),
                     'distance': business.get('distance'),
                     'rating': business.get('rating'),
                 }
