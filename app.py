@@ -43,7 +43,7 @@ def main():
                         'lat': [res['latitude'] for res in valid_results],
                         'lon': [res['longitude'] for res in valid_results],
                         'name': [res['name'] for res in valid_results],
-                        'review': [res['review'] for res in valid_results]
+                        'rating': [res['rating'] for res in valid_results]
                     })
 
                     # Rendering the map with pydeck
