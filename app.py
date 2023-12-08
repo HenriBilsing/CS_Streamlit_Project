@@ -1,11 +1,9 @@
 import streamlit as st
-import pydeck as pdk
 import Input_stage
 import API_stage
 import Output_stage
 import pandas as pd
-import math
-
+import pydeck as pdk
 
 def main():
     st.title("Business Locator Application")
@@ -18,8 +16,8 @@ def main():
     st.write(f"Category: {business_category}")
     st.write(f"Radius: {radius_km}")
 
-    # Call the relevant API-related function (if any) from Output_stage
-    api_data = API_code.process_api_data({'coordinates': {'latitude': user_location[0], 'longitude': user_location[1]}, 'category': business_category})
+    # Call the relevant API-related function (if any) from API_stage
+    api_data = API_stage.process_api_data({'coordinates': {'latitude': user_location[0], 'longitude': user_location[1]}, 'category': business_category})
 
     if api_data:
         yelp_businesses = [
@@ -34,7 +32,7 @@ def main():
         ]
 
         # Get businesses of a specific type within the radius
-        results = Output_stage.businesses_in_radius(user_location, radius_km, business_category, yelp_businesses)
+        results = Output_stage.process_output_data(api_data)
         
         if results:
             # Prepare DataFrame for pydeck
