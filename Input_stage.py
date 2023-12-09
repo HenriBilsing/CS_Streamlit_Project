@@ -42,6 +42,10 @@ def input_stage():
         lat = st.number_input("Enter Latitude", format="%.6f")
         lon = st.number_input("Enter Longitude", format="%.6f")
         user_location = (lat, lon)
+        if lat and lon:
+            if not is_location_in_switzerland(lat, lon):
+                st.error("The entered location must be within Switzerland.")
+                return None, None, None
 
     elif method == "Share Location":
         location = streamlit_geolocation()
@@ -49,6 +53,10 @@ def input_stage():
             lat = location['latitude']
             lon = location['longitude']
             user_location = (lat, lon)
+            if lat and lon:
+                if not is_location_in_switzerland(lat, lon):
+                    st.error("The entered location must be within Switzerland.")
+                    return None, None, None
 
     elif method == "Enter Address":
         street = st.text_input("Street Name and Number")
@@ -60,23 +68,14 @@ def input_stage():
             st.error("Postal code must be 4 digits.")
         else:
             user_location = get_location_from_address(street, city, postal_code)
-
-        # Show the country field when "Enter Address" is selected
-        country = "Switzerland"
-        st.text_input("Country", value=country, disabled=True)
-
-    if method in ["Enter Coordinates", "Share Location"]:
-            if user_location[0] is not None and user_location[1] is not None:
-                if not is_location_in_switzerland(user_location[0], user_location[1]):
-                    st.error("The entered location must be within Switzerland.")
-                    return None, None, None
-
-        elif method == "Enter Address":
-            # Existing code for address input...
             if user_location[0] is not None and user_location[1] is not None:
                 if not is_location_in_switzerland(user_location[0], user_location[1]):
                     st.error("The entered address must be within Switzerland.")
                     return None, None, None
+
+        # Show the country field when "Enter Address" is selected
+        country = "Switzerland"
+        st.text_input("Country", value=country, disabled=True)
 
     # Radius input
     radius_km = st.number_input('Radius in km', value=2)
