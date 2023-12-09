@@ -39,12 +39,13 @@ def input_stage():
     radius_km = None
 
     if method == "Enter Coordinates":
-        lat = st.number_input("Enter Latitude", format="%.6f")
-        lon = st.number_input("Enter Longitude", format="%.6f")
+        initial_lat = 47.4300025
+        initial_lon = 9.37221840
+        lat = st.number_input("Enter Latitude", value=initial_lat, format="%.6f")
+        lon = st.number_input("Enter Longitude", value=initial_lon, format="%.6f")
         user_location = (lat, lon)
         if lat and lon:
             if not is_location_in_switzerland(lat, lon):
-                st.error("The entered location must be within Switzerland.")
                 return None, None, None
 
     elif method == "Share Location":
@@ -55,7 +56,6 @@ def input_stage():
             user_location = (lat, lon)
             if lat and lon:
                 if not is_location_in_switzerland(lat, lon):
-                    st.error("The entered location must be within Switzerland.")
                     return None, None, None
 
     elif method == "Enter Address":
@@ -70,7 +70,6 @@ def input_stage():
             user_location = get_location_from_address(street, city, postal_code)
             if user_location[0] is not None and user_location[1] is not None:
                 if not is_location_in_switzerland(user_location[0], user_location[1]):
-                    st.error("The entered address must be within Switzerland.")
                     return None, None, None
 
         # Show the country field when "Enter Address" is selected
