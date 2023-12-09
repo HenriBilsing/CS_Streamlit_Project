@@ -43,8 +43,7 @@ def main():
                         'lat': [res['latitude'] for res in valid_results],
                         'lon': [res['longitude'] for res in valid_results],
                         'name': [res['name'] for res in valid_results],
-                        'rating': [res['rating'] for res in valid_results],
-                        'url': [res['url'] for res in valid_results]
+                        'rating': [res['rating'] for res in valid_results]
                     })
 
                     # Rendering the map with pydeck
@@ -67,7 +66,7 @@ def main():
                     r = pdk.Deck(
                         layers=[layer],
                         initial_view_state=view_state,
-                        tooltip={"html": "<b>Name:</b> {name}<br><b>Rating:</b> {rating}<br><b>Website:</b> {url}"}
+                        tooltip={"html": "<b>Name:</b> {name}<br><b>Rating:</b> {rating}"}
                     )
                     st.pydeck_chart(r)
                 else:
