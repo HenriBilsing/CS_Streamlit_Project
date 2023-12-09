@@ -42,7 +42,7 @@ def businesses_in_radius(user_coord, radius, business_type, dataset):
                 nearby_businesses.append({
                     'name': entry['name'],
                     'coordinates': business_coord,
-                    'review': entry.get('review', '')
+                    'rating': entry.get('rating', '')
                 })
 
     return nearby_businesses
