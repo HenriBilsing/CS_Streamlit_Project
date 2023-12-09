@@ -19,6 +19,18 @@ def get_location_from_address(street, city, postal_code):
             return latitude, longitude
     return None, None
 
+def is_location_in_switzerland(latitude, longitude):
+    """Check if the given latitude and longitude are in Switzerland."""
+    base_url = "https://geocode.maps.co/reverse"
+    params = {"lat": latitude, "lon": longitude}
+    response = requests.get(base_url, params=params)
+    
+    if response.status_code == 200:
+        data = response.json()
+        if data and 'address' in data and data['address'].get('country') == 'Switzerland':
+            return True
+    return False
+
 def input_stage():
     st.write("## Select Your Location and Category")
     method = st.radio("Choose your method to input location:", ("Enter Coordinates", "Share Location", "Enter Address"))
@@ -52,6 +64,19 @@ def input_stage():
         # Show the country field when "Enter Address" is selected
         country = "Switzerland"
         st.text_input("Country", value=country, disabled=True)
+
+    if method in ["Enter Coordinates", "Share Location"]:
+            if user_location[0] is not None and user_location[1] is not None:
+                if not is_location_in_switzerland(user_location[0], user_location[1]):
+                    st.error("The entered location must be within Switzerland.")
+                    return None, None, None
+
+        elif method == "Enter Address":
+            # Existing code for address input...
+            if user_location[0] is not None and user_location[1] is not None:
+                if not is_location_in_switzerland(user_location[0], user_location[1]):
+                    st.error("The entered address must be within Switzerland.")
+                    return None, None, None
 
     # Radius input
     radius_km = st.number_input('Radius in km', value=2)
