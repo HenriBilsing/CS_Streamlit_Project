@@ -20,9 +20,6 @@ def get_location_from_address(street, city, postal_code):
     return None, None
 
 def input_stage():
-
-
-    
     st.write("## Select Your Location and Category")
     method = st.radio("Choose your method to input location:", ("Enter Coordinates", "Share Location", "Enter Address"))
 
@@ -42,23 +39,22 @@ def input_stage():
             user_location = (lat, lon)
             st.write(f"Coordinates: {user_location}")
 
-
-
     elif method == "Enter Address":
         street = st.text_input("Street Name and Number")
         city = st.text_input("City")
         postal_code = st.text_input("Postal Code")
-        
-        if len(postal_code) != 4:
+
+        # Check the length of postal code when it's entered
+        if postal_code and len(postal_code) != 4:
             st.error("Postal code must be 4 digits.")
-        elif postal_code:
+        else:
             user_location = get_location_from_address(street, city, postal_code)
             if user_location[0] is not None:
                 st.write(f"Coordinates: {user_location}")
 
-    # Non-editable field for country
-    country = "Switzerland"
-    st.text_input("Country", value=country, disabled=True)
+        # Show the country field when "Enter Address" is selected
+        country = "Switzerland"
+        st.text_input("Country", value=country, disabled=True)
 
     # Radius input
     radius_km = st.number_input('Radius in km', value=2)
