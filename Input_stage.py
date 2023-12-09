@@ -37,7 +37,6 @@ def input_stage():
             lat = location['latitude']
             lon = location['longitude']
             user_location = (lat, lon)
-            st.write(f"Coordinates: {user_location}")
 
     elif method == "Enter Address":
         street = st.text_input("Street Name and Number")
@@ -49,8 +48,6 @@ def input_stage():
             st.error("Postal code must be 4 digits.")
         else:
             user_location = get_location_from_address(street, city, postal_code)
-            if user_location[0] is not None:
-                st.write(f"Coordinates: {user_location}")
 
         # Show the country field when "Enter Address" is selected
         country = "Switzerland"
