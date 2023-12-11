@@ -49,7 +49,6 @@ def input_stage():
     device_type = st.session_state.get('device_type', 'desktop')
 
     st.write("## Select Your Location and Category")
-    method = st.radio("Choose your method to input location:", ("Enter Coordinates", "Share Location", "Enter Address"))
 
     user_location = (None, None)
     radius_km = None
