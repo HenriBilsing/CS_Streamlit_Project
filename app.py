@@ -11,10 +11,6 @@ def main():
     if "device_type" not in st.session_state:
         st.session_state['device_type'] = 'desktop'
 
-    st.experimental_on_script_runner_execution(
-        lambda: st.session_state.update({'device_type': st.experimental_get_query_params().get("deviceType", ["desktop"])[0]})
-    )
-
     st.title("Business Locator Application")
 
     # Calling the input stage function
