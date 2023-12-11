@@ -30,7 +30,7 @@ def is_location_in_switzerland(latitude, longitude):
         data = response.json()
         if data and 'address' in data and data['address'].get('country') == 'Switzerland':
             return True
-    return False
+    return True
 
 def input_stage():
     # JavaScript to detect device type
