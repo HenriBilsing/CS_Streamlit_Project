@@ -72,7 +72,7 @@ def input_stage():
             st.text_input("Country", value=country, disabled=True)
         
     else:
-            method = st.radio("Choose your method to input location:", ("Share location", "Enter Address", "Enter Coordinates"))
+            method = st.radio("Choose your method to input location:", ("Share Location", "Enter Address", "Enter Coordinates"))
             if method == "Share Location":
                 location = streamlit_geolocation()
                 if location:
