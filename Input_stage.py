@@ -35,7 +35,6 @@ def is_location_in_switzerland(latitude, longitude):
 def input_stage():
     # JavaScript to detect device type
     device_type = st_javascript("""/mobile|ipad|iphone/i.test(navigator.userAgent.toLowerCase()) ? "mobile" : "desktop";""")
-    st.write(device_type)
 
     st.write("## Select Your Location and Category")
 
