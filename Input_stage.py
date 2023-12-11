@@ -45,7 +45,7 @@ def input_stage():
 
     user_location = (None, None)
     radius_km = None
-    if st.session_state['device_type'] == 'desktop':
+    if device_type == 'desktop':
         # Exclude "Share Location" option
         method = st.radio("Choose your method to input location:", ("Enter Coordinates", "Enter Address"))
         if method == "Enter Coordinates":
