@@ -61,7 +61,7 @@ def process_output_data(output_data):
     # Filter out businesses that match the big brand names
     filtered_businesses = [business for business in businesses if business['name'] not in big_brand_names]
 
-    return businesses
+    return filtered_businesses
 
 # Streamlit app
 def main():

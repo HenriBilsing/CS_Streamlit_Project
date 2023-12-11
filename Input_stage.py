@@ -30,7 +30,7 @@ def is_location_in_switzerland(latitude, longitude):
         data = response.json()
         if data and 'address' in data and data['address'].get('country') == 'Switzerland':
             return True
-    return True
+    return False
 
 def input_stage():
     # JavaScript to detect device type, follows user-agent strings based on device https://deviceatlas.com/blog/mobile-browser-user-agent-strings current limitation is Opera on Android 
