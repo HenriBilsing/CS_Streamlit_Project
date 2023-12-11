@@ -37,7 +37,7 @@ def input_stage():
     device_type_code = """
     <script>
     let deviceType = navigator.userAgent.toLowerCase().includes("mobile") ? "mobile" : "desktop";
-    window.parent.postMessage({deviceType: deviceType}, "*");
+    window.parent.postMessage({device_type: deviceType}, "*");
     </script>
     """
     html(device_type_code, height=0)
