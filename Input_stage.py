@@ -115,6 +115,6 @@ def input_stage():
     radius_km = st.number_input('Radius in km', value=2)
 
     # Business category selection
-    business_category = st.selectbox("Select Business Category", ["Restaurant", "Cafe", "Retail", "Other"])
+    business_category = st.selectbox("Select Business Category", ["Restaurant", "Cafes", "Shopping"])
 
     return user_location, business_category, radius_km
