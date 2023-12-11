@@ -33,7 +33,7 @@ def is_location_in_switzerland(latitude, longitude):
     return True
 
 def input_stage():
-    # JavaScript to detect device type
+    # JavaScript to detect device type, follows user-agent strings based on device https://deviceatlas.com/blog/mobile-browser-user-agent-strings current limitation is Opera on Android 
     device_type = st_javascript("""/mobile|ipad|iphone/i.test(navigator.userAgent.toLowerCase()) ? "mobile" : "desktop";""")
 
     st.write("## Select Your Location and Category")
