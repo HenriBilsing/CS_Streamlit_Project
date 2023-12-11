@@ -39,7 +39,7 @@ def input_stage():
     st.write("## Select Your Location and Category")
 
     user_location = (None, None)
-    radius_km = None
+    #radius_km = None
     if device_type == 'desktop':
         # Exclude "Share Location" option
         method = st.radio("Choose your method to input location:", ("Enter Coordinates", "Enter Address"))
@@ -112,9 +112,10 @@ def input_stage():
             st.text_input("Country", value=country, disabled=True)        
 
     # Radius input
-    radius_km = st.number_input('Radius in km', value=2)
+    #radius_km = st.number_input('Radius in km', value=2)
 
     # Business category selection
     business_category = st.selectbox("Select Business Category", ["Restaurant", "Cafes", "Shopping"])
 
-    return user_location, business_category, radius_km
+    return user_location, business_category
+    #return user_location, business_category, radius_km
