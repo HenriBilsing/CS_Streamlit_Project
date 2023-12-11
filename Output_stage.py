@@ -2,6 +2,13 @@ import pandas as pd
 import pydeck as pdk
 import math
 
+# Define an array of big brand names active in Switzerland
+big_brand_names = [
+    "McDonald's", "Burger King", "KFC", "Subway", "Pizza Hut", "Domino's Pizza",
+    "Starbucks", "Nespresso", "McCafé", "Costa Coffee", "Peet's Coffee",
+    "Migros", "Coop", "Zara", "H&M", "IKEA", "Media Markt"
+]
+
 def haversine_distance(coord1, coord2):
     # Radius of the Earth in kilometers
     R = 6371.0
@@ -50,7 +57,11 @@ def businesses_in_radius(user_coord, radius, business_type, dataset):
 def process_output_data(output_data):
     # Process the data received from the API stage
     businesses = output_data.get('results', [])
-    return businesses
+
+    # Filter out businesses that match the big brand names
+    filtered_businesses = [business for business in businesses if business['name'] not in big_brand_names]
+
+    return filtered_businesses
 
 # Streamlit app
 def main():
