@@ -15,7 +15,7 @@ def get_location_from_address(street, city, postal_code):
         data = response.json()
         if data:
             # Assuming the first result is the most relevant
-            latitude = data[0]["lat"]
+            latitude = data[0]["lat"] 
             longitude = data[0]["lon"]
             return latitude, longitude
     return None, None
@@ -34,7 +34,8 @@ def is_location_in_switzerland(latitude, longitude):
 
 def input_stage():
     # JavaScript to detect device type
-    device_type = st_javascript("""navigator.userAgent.toLowerCase().includes("mobile") ? "mobile" : "desktop";""")
+    device_type = st_javascript("""navigator.userAgent;""")
+    st.write(device_type)
 
     st.write("## Select Your Location and Category")
 
