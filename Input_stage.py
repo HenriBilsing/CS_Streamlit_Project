@@ -1,6 +1,7 @@
 # input_stage.py
 import streamlit as st
 from streamlit_geolocation import streamlit_geolocation
+from streamlit_javascript import st_javascript
 from streamlit.components.v1 import html
 import requests
 
@@ -37,13 +38,13 @@ def input_stage():
     device_type_code = """
     <script>
     let deviceType = navigator.userAgent.toLowerCase().includes("mobile") ? "mobile" : "desktop";
-    window.parent.postMessage({device_type: deviceType}, "*");
+    parent.window.deviceType = deviceType;
     </script>
     """
     html(device_type_code, height=0)
 
     # Receive device type from JavaScript
-    device_type = st.session_state.get('device_type', 'desktop')
+    device_type = st_javascript('parent.window.deviceType')
 
     st.write("## Select Your Location and Category")
 
