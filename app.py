@@ -1,5 +1,4 @@
 import streamlit as st
-from streamlit.components.v1 import html
 import Input_stage
 import API_stage
 import Output_stage
@@ -7,7 +6,7 @@ import pandas as pd
 import pydeck as pdk
 
 def main():
-    # Capture device type from JavaScript
+    # If device type is not detected, default to device type = desktop
     if "device_type" not in st.session_state:
         st.session_state['device_type'] = 'desktop'
 

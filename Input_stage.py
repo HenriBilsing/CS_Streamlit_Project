@@ -36,10 +36,7 @@ def input_stage():
     # JavaScript to detect device type
     device_type_code = """
     <script>
-    function isMobileDevice() {
-        return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
-    };
-    let deviceType = isMobileDevice() ? "mobile" : "desktop";
+    let deviceType = navigator.userAgent.toLowerCase().includes("mobile") ? "mobile" : "desktop";
     window.parent.postMessage({deviceType: deviceType}, "*");
     </script>
     """
