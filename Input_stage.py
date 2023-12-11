@@ -83,8 +83,9 @@ def input_stage():
             # Show the country field when "Enter Address" is selected
             country = "Switzerland"
             st.text_input("Country", value=country, disabled=True)
-        else:
-            method = st.radio("Choose your method to input location:", ("Enter Coordinates", "Enter Address"))
+        
+    else:
+            method = st.radio("Choose your method to input location:", ("Share location", "Enter Address", "Enter Coordinates"))
             if method == "Share Location":
                 location = streamlit_geolocation()
                 if location:
