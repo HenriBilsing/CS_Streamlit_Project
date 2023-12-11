@@ -2,7 +2,6 @@
 import streamlit as st
 from streamlit_geolocation import streamlit_geolocation
 from streamlit_javascript import st_javascript
-from streamlit.components.v1 import html
 import requests
 
 def get_location_from_address(street, city, postal_code):
@@ -35,11 +34,7 @@ def is_location_in_switzerland(latitude, longitude):
 
 def input_stage():
     # JavaScript to detect device type
-    
-
-    # Receive device type from JavaScript
     device_type = st_javascript("""navigator.userAgent.toLowerCase().includes("mobile") ? "mobile" : "desktop";""")
-    st.write(device_type)
 
     st.write("## Select Your Location and Category")
 
