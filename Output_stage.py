@@ -77,7 +77,7 @@ def main():
     if st.button('Find Businesses'):
         user_coordinates = (lat, lon)
         # Assuming 'data' is your dataset
-        results = businesses_in_radius(user_coordinates, radius_km, business_type, data)
+        results = businesses_in_radius(user_coordinates, radius_km, business_type, output_data)
         
         if results:
             # Prepare DataFrame for st.map
