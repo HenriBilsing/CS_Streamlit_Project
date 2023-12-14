@@ -5,7 +5,7 @@ from streamlit_javascript import st_javascript
 import requests
 
 def get_location_from_address(street, city, postal_code):
-    """Convert an address in Switzerland to latitude and longitude using Maps.co Geocoding API."""
+    #Convert an address in Switzerland to latitude and longitude using Maps.co Geocoding API.
     base_url = "https://geocode.maps.co/search"
     address = f"{street}, {city}, {postal_code}, Switzerland"
     params = {"q": address}
@@ -21,7 +21,7 @@ def get_location_from_address(street, city, postal_code):
     return None, None
 
 def is_location_in_switzerland(latitude, longitude):
-    """Check if the given latitude and longitude are in Switzerland."""
+    #Check if the given latitude and longitude are in Switzerland.
     base_url = "https://geocode.maps.co/reverse"
     params = {"lat": latitude, "lon": longitude}
     response = requests.get(base_url, params=params)
@@ -39,10 +39,11 @@ def input_stage():
     st.write("## Select Your Location and Category")
 
     user_location = (None, None)
-    #radius_km = None
+    
     if device_type == 'desktop':
-        # Exclude "Share Location" option
+    # Exclude "Share Location" option, provide options to enter address or enter coordinates
         method = st.radio("Choose your method to input location:", ("Enter Coordinates", "Enter Address"))
+        # Enter coordinates, initial coordinates set to HSG campus
         if method == "Enter Coordinates":
             initial_lat = 47.4300025
             initial_lon = 9.37221840
@@ -53,6 +54,7 @@ def input_stage():
                 if not is_location_in_switzerland(lat, lon):
                     return None, None, None
 
+        # Enter address, "Switzerland" as country always send to Geocode API
         elif method == "Enter Address":
             street = st.text_input("Street Name and Number")
             city = st.text_input("City")
@@ -72,7 +74,9 @@ def input_stage():
             st.text_input("Country", value=country, disabled=True)
         
     else:
+    # Show all three options to enter location, Geolocation option using device GPS-sensor used as default
             method = st.radio("Choose your method to input location:", ("Share Location", "Enter Address", "Enter Coordinates"))
+            # Use streamlit_geolocation library to receive the device's location if the user permits it
             if method == "Share Location":
                 location = streamlit_geolocation()
                 if location:
@@ -83,6 +87,7 @@ def input_stage():
                         if not is_location_in_switzerland(lat, lon):
                             return None, None, None
                         
+            # Enter address, "Switzerland" as country always send to Geocode API
             elif method == "Enter Address":
                 street = st.text_input("Street Name and Number")
                 city = st.text_input("City")
@@ -97,6 +102,7 @@ def input_stage():
                         if not is_location_in_switzerland(user_location[0], user_location[1]):
                             return None, None, None
             
+            # Enter coordinates, initial coordinates set to HSG campus
             elif method == "Enter Coordinates":
                 initial_lat = 47.4300025
                 initial_lon = 9.37221840
@@ -111,11 +117,7 @@ def input_stage():
             country = "Switzerland"
             st.text_input("Country", value=country, disabled=True)        
 
-    # Radius input
-    #radius_km = st.number_input('Radius in km', value=2)
-
-    # Business category selection
+    # Business category selection, categories selected from Yelp API documentation based on project goals https://docs.developer.yelp.com/docs/resources-categories
     business_category = st.selectbox("Select Business Category", ["Restaurant", "Cafes", "Shopping"])
 
     return user_location, business_category
-    #return user_location, business_category, radius_km
