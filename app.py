@@ -17,7 +17,6 @@ def main():
         # Display the results from the input stage
         st.write(f"Location: {user_location}")
         st.write(f"Category: {business_category}")
-        st.write(f"Search Radius: {radius_km} km")
 
         # Button to perform action
         if st.button('Find Businesses'):
@@ -28,7 +27,6 @@ def main():
                     'longitude': user_location[1]
                 }, 
                 'category': business_category
-                'radius_km': radius_km
            
             })
 
