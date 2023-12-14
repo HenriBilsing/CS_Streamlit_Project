@@ -40,6 +40,7 @@ def input_stage():
     st.write("## Select Your Location and Category")
 
     user_location = (None, None)
+    radius_km = None
     
     if device_type == 'desktop':
     # Exclude "Share Location" option, provide options to enter address or enter coordinates
@@ -53,7 +54,7 @@ def input_stage():
             user_location = (lat, lon)
             if lat and lon:
                 if not is_location_in_switzerland(lat, lon):
-                    return None, None
+                    return None, None, None
 
         # Enter address, Always send "Switzerland" as country to Geocode API
         elif method == "Enter Address":
@@ -68,7 +69,7 @@ def input_stage():
                 user_location = get_location_from_address(street, city, postal_code)
                 if user_location[0] is not None and user_location[1] is not None:
                     if not is_location_in_switzerland(user_location[0], user_location[1]):
-                        return None, None
+                        return None, None, None
 
             # Show the country field when "Enter Address" is selected
             country = "Switzerland"
@@ -86,7 +87,7 @@ def input_stage():
                     user_location = (lat, lon)
                     if lat and lon:
                         if not is_location_in_switzerland(lat, lon):
-                            return None, None
+                            return None, None, None
                         
             # Enter address, Always send "Switzerland" as country to Geocode API
             elif method == "Enter Address":
@@ -101,7 +102,7 @@ def input_stage():
                     user_location = get_location_from_address(street, city, postal_code)
                     if user_location[0] is not None and user_location[1] is not None:
                         if not is_location_in_switzerland(user_location[0], user_location[1]):
-                            return None, None
+                            return None, None, None
                         
                 # Show the country field when "Enter Address" is selected
                 country = "Switzerland"
@@ -116,9 +117,11 @@ def input_stage():
                 user_location = (lat, lon)
                 if lat and lon:
                     if not is_location_in_switzerland(lat, lon):
-                        return None, None       
+                        return None, None, None       
+    # Radius input
+    radius_km = st.number_input('Radius in km', value=2)
 
     # Business category selection, categories selected from Yelp API documentation based on project goals https://docs.developer.yelp.com/docs/resources-categories
     business_category = st.selectbox("Select Business Category", ["Restaurant", "Cafes", "Shopping"])
 
-    return user_location, business_category
+    return user_location, business_category, radius_km
