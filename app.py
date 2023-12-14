@@ -50,7 +50,7 @@ def main():
 
                         # Rendering the map with pydeck
                         initial_zoom = 11
-                        radius = 5
+                        radius = 30
                         layer = pdk.Layer(
                             'ScatterplotLayer',
                             df,
