@@ -43,10 +43,10 @@ def haversine_distance(coord1, coord2):
 
 # Function to select the Businesses in the defined radius--------------------------------------------------------------------------
 
-def businesses_in_radius(user_coord, radius, business_type, dataset):
+def businesses_in_radius(user_coord, radius, business_type, output_data):
     nearby_businesses = []
 
-    for entry in dataset:
+    for entry in output_data:
         if entry['type'] == business_type:
             business_coord = (entry['latitude'], entry['longitude'])
             distance = haversine_distance(user_coord, business_coord)
