@@ -5,7 +5,7 @@ from streamlit_javascript import st_javascript
 import requests
 
 def get_location_from_address(street, city, postal_code):
-    #Convert an address in Switzerland to latitude and longitude using Maps.co Geocoding API.
+    #Convert an address in Switzerland to latitude and longitude using Maps.co Geocoding API, limitations exist for streets with unclear naming conventions (Zürcherstrasse / Hauptstrasse)
     base_url = "https://geocode.maps.co/search"
     address = f"{street}, {city}, {postal_code}, Switzerland"
     params = {"q": address}
@@ -26,6 +26,7 @@ def is_location_in_switzerland(latitude, longitude):
     params = {"lat": latitude, "lon": longitude}
     response = requests.get(base_url, params=params)
     
+    # Check if request has succeeded, if yes, return true/false based on returned country of location
     if response.status_code == 200:
         data = response.json()
         if data and 'address' in data and data['address'].get('country') == 'Switzerland':
