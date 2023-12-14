@@ -7,7 +7,7 @@ big_brand_names = [
 
 def process_output_data(output_data):
     """
-    Trakes results from the Yelp API and filters them to exclude entries marked as 'big businesses'
+    Takes results from the Yelp API and filters them to exclude entries marked as 'big businesses'
     
     @return: Filtered businesses
     """
@@ -15,6 +15,6 @@ def process_output_data(output_data):
     businesses = output_data.get('results', [])
 
     # Filter out businesses that match the big brand names
-    filtered_businesses = [business for business in businesses if business['name'] not in big_brand_names]
+    filtered_businesses = [business for business in businesses if not any(brand in business['name'] for brand in big_brand_names)]
 
     return filtered_businesses
