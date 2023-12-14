@@ -1,3 +1,5 @@
+# output_stage.py
+
 # Define an array of big brand names active in Switzerland
 big_brand_names = [
     "McDonald's", "Burger King", "KFC", "Subway", "Pizza Hut", "Domino's Pizza",
