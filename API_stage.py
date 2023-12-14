@@ -1,12 +1,8 @@
 # API_stage.py
 import requests
-import json
 
 def process_api_data(input_data):
-    # Step 2: Format and Validate Input
-    # Assume input_data is a dictionary with keys 'coordinates', 'address', 'category'
-
-    # Step 3: Use Yelp API
+    # Step 1: Use Yelp API
     yelp_api_url = 'https://api.yelp.com/v3/businesses/search'
     api_key = 'Vsfhiaf8e7xi1tqb9f6os-CIQxN-Qo8Vg80Ir0yG9m61wLtcL8EdCWM8K9l9Y8Oaj3wI-nRMh7M1GzRaIGTDPkwXRdOLzYbxAkRlkyRk-PhyvEyU0sHsBIRpOBlrZXYx'
 
@@ -21,15 +17,12 @@ def process_api_data(input_data):
 
     response = requests.get(yelp_api_url, headers=headers, params=params)
 
-    # Step 4: Process API Response
+    # Step 2: Process API Response
     if response.status_code == 200:
         api_data = response.json()
         businesses = api_data.get('businesses', [])
 
-        # Step 5: Filter and Sort
-        # Apply additional filtering and sorting if needed
-
-        # Step 6: Format Output
+        # Step 3: Format Output
         output_data = {
             'results': [
                 {
