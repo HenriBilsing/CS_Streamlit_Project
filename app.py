@@ -27,6 +27,7 @@ def main():
                     'longitude': user_location[1]
                 }, 
                 'category': business_category
+                'distance': radius_km
             })
 
             if api_data:
