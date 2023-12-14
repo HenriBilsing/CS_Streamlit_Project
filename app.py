@@ -11,13 +11,10 @@ def main():
     # Calling the input stage function
     user_location, business_category = Input_stage.input_stage()
 
-    #user_location, business_category, radius_km = Input_stage.input_stage()
-
     if user_location and user_location[0] is not None:
         # Display the results from the input stage
         st.write(f"Location: {user_location}")
         st.write(f"Category: {business_category}")
-        #st.write(f"Radius: {radius_km}")
 
         # Button to perform action
         if st.button('Find Businesses'):
