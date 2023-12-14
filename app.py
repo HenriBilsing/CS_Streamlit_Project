@@ -5,6 +5,9 @@ import Output_stage
 import pandas as pd
 import pydeck as pdk
 
+img = 'Swissbite.png'
+st.set_page_config(page_title="Swissbite", page_icon=img, layout="wide")
+
 def main():
     st.title("Business Locator Application")
 
