@@ -2,6 +2,11 @@
 import requests
 
 def process_api_data(input_data):
+    """
+    Querrys the Yelp API based on the selected category and user location
+    
+    @return: Response from Yelp API with name, location and rating of business returned by the querry
+    """
     # Step 1: Use Yelp API
     yelp_api_url = 'https://api.yelp.com/v3/businesses/search'
     api_key = 'Vsfhiaf8e7xi1tqb9f6os-CIQxN-Qo8Vg80Ir0yG9m61wLtcL8EdCWM8K9l9Y8Oaj3wI-nRMh7M1GzRaIGTDPkwXRdOLzYbxAkRlkyRk-PhyvEyU0sHsBIRpOBlrZXYx'

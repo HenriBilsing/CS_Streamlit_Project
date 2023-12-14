@@ -11,7 +11,7 @@ def main():
     st.title("Business Locator Application")
 
     # Calling the input stage function
-    user_location, business_category, radius_km = Input_stage.input_stage()
+    user_location, business_category = Input_stage.input_stage()
 
     if user_location and user_location[0] is not None:
         # Display the results from the input stage

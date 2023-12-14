@@ -5,7 +5,11 @@ from streamlit_javascript import st_javascript
 import requests
 
 def get_location_from_address(street, city, postal_code):
-    #Convert an address in Switzerland to latitude and longitude using Maps.co Geocoding API, limitations exist for streets with unclear naming conventions (Zürcherstrasse / Hauptstrasse)
+    """
+    Convert an address in Switzerland to latitude and longitude using Maps.co Geocoding API, limitations exist for streets with unclear naming conventions (Zürcherstrasse / Hauptstrasse)
+    
+    @return: Returns tuple of latitude and longitude returned by the Maps.Co API if an address is found, otherwise returns none as values
+    """
     base_url = "https://geocode.maps.co/search"
     address = f"{street}, {city}, {postal_code}, Switzerland"
     params = {"q": address}
@@ -21,7 +25,11 @@ def get_location_from_address(street, city, postal_code):
     return None, None
 
 def is_location_in_switzerland(latitude, longitude):
-    #Check if the given latitude and longitude are in Switzerland.
+    """
+    Check if the given latitude and longitude are in Switzerland.
+    
+    @return: Returns boolean value, true if location is in Switzerland, false if it is not
+    """
     base_url = "https://geocode.maps.co/reverse"
     params = {"lat": latitude, "lon": longitude}
     response = requests.get(base_url, params=params)
@@ -34,13 +42,17 @@ def is_location_in_switzerland(latitude, longitude):
     return False
 
 def input_stage():
+    """
+    Check if the given latitude and longitude are in Switzerland.
+    
+    @return: Returns userlocation (tuple, lat & long), and business category for the Yelp querry
+    """
     # JavaScript to detect device type, follows user-agent strings based on device https://deviceatlas.com/blog/mobile-browser-user-agent-strings current limitation is Opera on Android 
     device_type = st_javascript("""/mobile|ipad|iphone/i.test(navigator.userAgent.toLowerCase()) ? "mobile" : "desktop";""")
 
     st.write("## Select Your Location and Category")
 
     user_location = (None, None)
-    radius_km = None
     
     if device_type == 'desktop':
     # Exclude "Share Location" option, provide options to enter address or enter coordinates
@@ -54,7 +66,7 @@ def input_stage():
             user_location = (lat, lon)
             if lat and lon:
                 if not is_location_in_switzerland(lat, lon):
-                    return None, None, None
+                    return None, None
 
         # Enter address, Always send "Switzerland" as country to Geocode API
         elif method == "Enter Address":
@@ -69,7 +81,7 @@ def input_stage():
                 user_location = get_location_from_address(street, city, postal_code)
                 if user_location[0] is not None and user_location[1] is not None:
                     if not is_location_in_switzerland(user_location[0], user_location[1]):
-                        return None, None, None
+                        return None, None
 
             # Show the country field when "Enter Address" is selected
             country = "Switzerland"
@@ -87,7 +99,7 @@ def input_stage():
                     user_location = (lat, lon)
                     if lat and lon:
                         if not is_location_in_switzerland(lat, lon):
-                            return None, None, None
+                            return None, None
                         
             # Enter address, Always send "Switzerland" as country to Geocode API
             elif method == "Enter Address":
@@ -102,7 +114,7 @@ def input_stage():
                     user_location = get_location_from_address(street, city, postal_code)
                     if user_location[0] is not None and user_location[1] is not None:
                         if not is_location_in_switzerland(user_location[0], user_location[1]):
-                            return None, None, None
+                            return None, None
                         
                 # Show the country field when "Enter Address" is selected
                 country = "Switzerland"
@@ -117,11 +129,9 @@ def input_stage():
                 user_location = (lat, lon)
                 if lat and lon:
                     if not is_location_in_switzerland(lat, lon):
-                        return None, None, None       
-    # Radius input
-    radius_km = st.number_input('Radius in km', value=2)
+                        return None, None     
 
     # Business category selection, categories selected from Yelp API documentation based on project goals https://docs.developer.yelp.com/docs/resources-categories
     business_category = st.selectbox("Select Business Category", ["Restaurant", "Cafes", "Shopping"])
 
-    return user_location, business_category, radius_km
+    return user_location, business_category
