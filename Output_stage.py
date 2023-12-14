@@ -9,6 +9,8 @@ big_brand_names = [
     "Migros", "Coop", "Zara", "H&M", "IKEA", "Media Markt"
 ]
 
+# Defint the haversine_distance function that has been proposed by David Montani.
+# The code was used from David Monatni aswell. 
 def haversine_distance(coord1, coord2):
     # Radius of the Earth in kilometers
     R = 6371.0
@@ -35,7 +37,7 @@ def haversine_distance(coord1, coord2):
     return distance
 
 
-# Function--------------------------------------------------------------------------
+# Function to --------------------------------------------------------------------------
 
 def businesses_in_radius(user_coord, radius, business_type, dataset):
     nearby_businesses = []
@@ -63,33 +65,3 @@ def process_output_data(output_data):
 
     return filtered_businesses
 
-# Streamlit app
-def main():
-    st.title('Business Locator')
-
-    # User inputs
-    lat = st.number_input('Latitude', value=40.7128)  # Default values as an example
-    lon = st.number_input('Longitude', value=-74.0060)
-    radius_km = st.number_input('Radius in km', value=5)
-    business_type = st.selectbox('Business Type', ['Restaurant', 'Cafe', 'Retail'])
-
-    # Button to perform action
-    if st.button('Find Businesses'):
-        user_coordinates = (lat, lon)
-        # Assuming 'data' is your dataset
-        results = businesses_in_radius(user_coordinates, radius_km, business_type, output_data)
-        
-        if results:
-            # Prepare DataFrame for st.map
-            df = pd.DataFrame({
-                'lat': [res['coordinates'][0] for res in results],
-                'lon': [res['coordinates'][1] for res in results]
-            })
-            st.map(df)
-            # Optionally display details in a table
-            st.write(results)
-        else:
-            st.write("No businesses found within the specified radius.")
-
-if __name__ == "__main__":
-    main()
