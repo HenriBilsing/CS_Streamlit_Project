@@ -52,7 +52,7 @@ def input_stage():
             user_location = (lat, lon)
             if lat and lon:
                 if not is_location_in_switzerland(lat, lon):
-                    return None, None, None
+                    return None, None
 
         # Enter address, Always send "Switzerland" as country to Geocode API
         elif method == "Enter Address":
@@ -67,7 +67,7 @@ def input_stage():
                 user_location = get_location_from_address(street, city, postal_code)
                 if user_location[0] is not None and user_location[1] is not None:
                     if not is_location_in_switzerland(user_location[0], user_location[1]):
-                        return None, None, None
+                        return None, None
 
             # Show the country field when "Enter Address" is selected
             country = "Switzerland"
@@ -85,7 +85,7 @@ def input_stage():
                     user_location = (lat, lon)
                     if lat and lon:
                         if not is_location_in_switzerland(lat, lon):
-                            return None, None, None
+                            return None, None
                         
             # Enter address, Always send "Switzerland" as country to Geocode API
             elif method == "Enter Address":
@@ -100,7 +100,7 @@ def input_stage():
                     user_location = get_location_from_address(street, city, postal_code)
                     if user_location[0] is not None and user_location[1] is not None:
                         if not is_location_in_switzerland(user_location[0], user_location[1]):
-                            return None, None, None
+                            return None, None
                         
                 # Show the country field when "Enter Address" is selected
                 country = "Switzerland"
@@ -115,7 +115,7 @@ def input_stage():
                 user_location = (lat, lon)
                 if lat and lon:
                     if not is_location_in_switzerland(lat, lon):
-                        return None, None, None       
+                        return None, None       
 
     # Business category selection, categories selected from Yelp API documentation based on project goals https://docs.developer.yelp.com/docs/resources-categories
     business_category = st.selectbox("Select Business Category", ["Restaurant", "Cafes", "Shopping"])
