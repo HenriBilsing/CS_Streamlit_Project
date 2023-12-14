@@ -1,12 +1,11 @@
 import streamlit as st
-img = 'Swissbite.png'
-st.set_page_config(page_title="Swissbite", page_icon=img, layout="wide")
-
 import Input_stage
 import API_stage
 import Output_stage
 import pandas as pd
 import pydeck as pdk
+
+st.set_page_config(page_title="Swissbite", page_icon="🇨🇭", layout="wide")
 
 def main():
     st.title("Business Locator Application")
