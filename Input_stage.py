@@ -83,6 +83,7 @@ def input_stage():
                     lat = location['latitude']
                     lon = location['longitude']
                     user_location = (lat, lon)
+                    st.write(user_location)
                     if lat and lon:
                         if not is_location_in_switzerland(lat, lon):
                             return None, None
